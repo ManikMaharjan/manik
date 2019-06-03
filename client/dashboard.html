@@ -1,0 +1,73 @@
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> 
+     <script>  
+         $(document).ready(function () {  
+		 
+		 
+     
+			 
+			 
+			 
+			 
+			                    
+var tok = localStorage.getItem('token');
+alert(tok);
+			    
+			  
+			/// dashboard creation
+			     $.ajax({
+        type: 'get',
+        url: 'http://localhost:8080/user/me',
+        beforeSend: function(xhr) {
+          if (tok) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + tok);
+          }
+        },
+        success: function(data) {
+           $('#stage').append('<p> Name: ' + data.username  + '</p>' + "<p>password : " + data.password + "<p/>"); // database name sanga milnu parcha                                      
+        },
+        error: function() {
+          alert("Sorry, you are not logged in.");
+        }
+      });
+	  
+	  // for logging out
+   
+			   $("#logout").click(function(){
+			   	$.ajax({
+        type: 'post',
+        url: 'http://localhost:8080/user/logout',
+        beforeSend: function(xhr) {
+          if (tok) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + tok);
+          }
+        },
+        success: function(data) {
+           $('#stage').append('<p> Name: ' + data.username  + '</p>' + "<p>password : " + data.password + "<p/>"); //database bata taneko                                     
+        },
+        error: function() {
+          alert("Sorry, you are not logged in.");
+        }
+      });
+			   })                      
+	
+
+
+
+
+			 
+         });  
+		 
+		 
+
+    </script>  
+</head>  
+<body>  
+
+	
+	<div id="stage">dd</div>
+	<button id="logout">LOGOUT</button>
+	
+</body>  
+</html> 
